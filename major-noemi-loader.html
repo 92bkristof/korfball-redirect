@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <title>Major Noémi – Átirányítás...</title>
+</head>
+<body>
+  <p>Gólok számolása folyamatban...</p>
+
+  <script>
+    const matchUrl = "https://www.korfball.hu/bajnoks%C3%A1g/feln%C5%91tt/202526/central-european-cup/%C3%B3budai-kk-ukkvsd-collab";
+    const pattern = /Major Noémi\s+#17\s+\(ÚKKxVSD Collab\)/g;
+
+    async function redirect() {
+      try {
+        const response = await fetch(matchUrl);
+        const html = await response.text();
+        const matches = html.match(pattern);
+        const count = matches ? matches.length : 0;
+
+        const destination = `https://sites.google.com/view/korfball/major-noemi?major-noemi,goal=${count}`;
+        window.location.href = destination;
+      } catch (err) {
+        console.error("Nem sikerült lekérni:", err);
+        document.body.innerHTML = "⚠️ Hiba az átirányítás során";
+      }
+    }
+
+    redirect();
+  </script>
+</body>
+</html>
